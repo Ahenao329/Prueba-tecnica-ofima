@@ -1,0 +1,228 @@
+<div class="container container ">
+  <div class="row">
+
+    <section class="col-lg-8 mx-auto mt-5">
+      <h1 class="text-center">Clientes</h1>
+      <div class="table-responsive mt-4">
+        <table class="table table-striped table-primary">
+          <thead class="table-dark text-center">
+            <tr>
+              <th scope="col">NIT</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Email</th>
+              <th scope="col">Nombre Comercial</th>
+              <th scope="col">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let clientes of listClient; let i = index">
+              <td>{{ clientes.identification }}</td>
+              <td>{{ clientes.name }}</td>
+              <td>{{ clientes.email }}</td>
+              <td>{{ clientes.nameCommercial }}</td>
+              <td>
+                <div class="d-flex gap-2">
+                  <button
+                    (click)="eliminarCliente(clientes.id)"
+                    class="btn btn-danger btn-sm btn-custom"
+                  >
+                    <i class="fas fa-trash-alt"></i> Eliminar
+                  </button>
+                  <button
+                    (click)="editarCliente(clientes)"
+                    class="btn btn-primary btn-sm btn-custom"
+                  >
+                    <i class="fas fa-edit"></i> Modificar
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <div class="container mt-5 d-flex justify-content-center">
+        <div class="col-lg-8">
+          <div class="card">
+            <div class="card-body">
+              <h1 class="title text-center">{{ accion | uppercase}}</h1>
+              <form [formGroup]="formLogin" (ngSubmit)="guardarCliente()">
+                <div class="row mb-3 mt-5">
+                  <div class="col-sm-6 col-xs-12">
+                    <mat-form-field class="example-full-width">
+                      <input matInput formControlName="identification" placeholder="Identificación">
+                      <mat-error *ngFor="let validation of errors.nit">
+                        <span *ngIf="formLogin.get('identification').hasError(validation.type) && (formLogin.get('identification').dirty || formLogin.get('identification').touched)">
+                          {{validation.message}}
+                        </span>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-sm-6 col-xs-12">
+                    <mat-form-field class="input">
+                      <input
+                        matInput
+                        formControlName="name"
+                        placeholder="Nombre"
+                        maxlength="30"
+                      />
+                    </mat-form-field>
+                  </div>
+                </div>
+    
+                <div class="row mb-3 mt-5">
+                  <div class="col-sm-6 col-xs-12">
+                    <mat-form-field class="input">
+                      <input
+                        matInput
+                        formControlName="nameCommercial"
+                        placeholder="Nombre Comercial"
+                        maxlength="30"
+                      />
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                    <mat-form-field class="input">
+                      <input
+                        matInput
+                        formControlName="email"
+                        type="email"
+                        placeholder="Correo"
+                        maxlength="30"
+                      />
+                      <mat-error *ngFor="let validation of errors.email">
+                        <span *ngIf="formLogin.get('email').hasError(validation.type) && (formLogin.get('email').dirty || formLogin.get('email').touched)">
+                          {{validation.message}}
+                        </span>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  
+                </div>
+    
+                <div class="row mb-3 mt-5">
+                  <div class="col-sm-6 col-xs-12">
+                    <mat-form-field class="input">
+                      <input
+                        matInput
+                        formControlName="phoneEnterprise"
+                        placeholder="Teléfono Empresarial"
+                        maxlength="10"
+                      />
+                      <mat-error *ngFor="let validation of errors.Telefono">
+                        <span *ngIf="formLogin.get('phoneEnterprise').hasError(validation.type) && (formLogin.get('phoneEnterprise').dirty || formLogin.get('phoneEnterprise').touched)">
+                          {{validation.message}}
+                        </span>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-sm-6 col-xs-12">
+                    <mat-form-field class="input">
+                      <input
+                        matInput
+                        formControlName="pageWeb"
+                        placeholder="Página Web"
+                        maxlength="50"
+                      />
+                    </mat-form-field>
+                  </div>
+                </div>
+    
+                <div class="row mb-3 mt-5">
+                  <div class="col-sm-6 col-xs-12">
+                    <div class="dropdown">
+                      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Seleccionar Ciudad
+                      </a>
+                      <ul class="dropdown-menu" >
+                        <li *ngFor="let paises of listPaises; let i = index">
+                          <a class="dropdown-item">{{paises.name}}</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div> 
+                  <!-- <div class="col-sm-6 col-xs-12">
+                    <mat-form-field class="input">
+                      <input
+                        matInput
+                        formControlName="idCity"
+                        placeholder="ciudad"
+                        maxlength="50"
+                      />
+                    </mat-form-field>
+                  </div> -->
+                  <div class="col-sm-6 col-xs-12">
+                    <mat-form-field class="input">
+                      <input
+                        matInput
+                        formControlName="address"
+                        placeholder="Dirección"
+                        maxlength="50"
+                      />
+                    </mat-form-field>
+                  </div>
+                </div>
+    
+                <div class="row mb-3 mt-5">
+                  <div class="col-sm-6 col-xs-12">
+                    <mat-form-field class="input">
+                      <input
+                        matInput
+                        formControlName="twitter"
+                        placeholder="Twitter"
+                        maxlength="150"
+                      />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-sm-6 col-xs-12">
+                    <mat-form-field class="input">
+                      <input
+                        matInput
+                        formControlName="linkedin"
+                        placeholder="LinkedIn"
+                        maxlength="150"
+                      />
+                    </mat-form-field>
+                  </div>
+                </div>
+    
+                <div class="row mb-3 mt-5">
+                  <div class="col-sm-6 col-xs-12">
+                    <mat-form-field class="input">
+                      <input
+                        matInput
+                        formControlName="instagram"
+                        placeholder="Instagram"
+                        maxlength="150"
+                      />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-sm-6 col-xs-12">
+                    <mat-form-field class="input">
+                      <input
+                        matInput
+                        formControlName="facebook"
+                        placeholder="Facebook"
+                        maxlength="150"
+                      />
+                    </mat-form-field>
+                  </div>
+                </div>
+     
+                <div class="row justify-content-center mb-3 mt-5">
+                  <button class="text-light btn btn-sucess btn-lg bg-success" type="submit" [disabled]="!formLogin.valid">
+                    <i class="fas fa-database"></i> Guardar 
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+

@@ -1,0 +1,13 @@
+<div class="container">
+  <h1 class="text-center">Google Maps</h1>
+  <google-map
+    height="80vh"
+    width="100%"
+    [center]="position"
+    [zoom]="zoom">
+    <map-marker [position]="position"
+    [label]="label"
+    [title]="title">
+    </map-marker>
+  </google-map>
+</div>
